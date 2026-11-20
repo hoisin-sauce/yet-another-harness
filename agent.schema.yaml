@@ -1,3 +1,26 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "schemas:v0:agent"
 title: Agent Schema
+description: >
+  Describes the format that agents should be specified in for usage in Yet-Another-Harness (YAH)
+
+type: object
+
+required:
+  - id
+
+properties:
+  id:
+    ...
+
+  models:
+    ...
+
+  systemPrompt:
+    ...
+
+  toolConfig:
+    ...
+
+  skillConfig:
+    ...
