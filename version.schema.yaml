@@ -1,0 +1,20 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "schemas:v0:version"
+title: Version Schema
+description: >
+  Standard versioning for objects described in the v0 schema
+
+type: object
+    required:
+      - versionCode
+      - versionStatus
+    properties:
+      versionCode:
+        type: string
+      versionStatus:
+        enum:
+          - proposed
+          - experimental
+          - stable
+          - depreciated
+          - superceded

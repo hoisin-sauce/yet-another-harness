@@ -2,4 +2,10 @@ $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "schemas:v0:tool"
 title: Tool Schema
 description: >
-  Descripes how
+  Descripes the format in which tools should be described
+
+oneOf:
+  - $ref: "openai:v1:tool"
+
+$defs:
+  ...

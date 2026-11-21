@@ -1,0 +1,143 @@
+# generated from openai using google ai model
+$schema: http://json-schema.org
+$id: "openai:v1:tool"
+title: OpenAIToolDefinition
+description: Full meta-schema covering OpenAI Responses API function and custom tools.
+oneOf:
+  - $ref: "#/$defs/FunctionTool"
+  - $ref: "#/$defs/CustomTool"
+
+$defs:
+  FunctionTool:
+    type: object
+    required: [type, name, description, parameters]
+    additionalProperties: false
+    properties:
+      type:
+        const: function
+      name:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]{1,64}$"
+      description:
+        type: string
+      strict:
+        type: [boolean, "null"]
+        default: true
+      parameters:
+        $ref: "#/$defs/ObjectSchema"
+
+  CustomTool:
+    type: object
+    required: [type, name, description]
+    additionalProperties: false
+    properties:
+      type:
+        const: custom
+      name:
+        type: string
+        pattern: "^[a-zA-Z0-9_-]{1,64}$"
+      description:
+        type: string
+      format:
+        type: object
+        required: [type, syntax, definition]
+        additionalProperties: false
+        properties:
+          type:
+            const: grammar
+          syntax:
+            enum: [lark, regex]
+          definition:
+            type: string
+
+  ObjectSchema:
+    type: object
+    required: [type, properties]
+    additionalProperties: false
+    properties:
+      type:
+        const: object
+      description:
+        type: string
+      properties:
+        type: object
+        additionalProperties:
+          $ref: "#/$defs/PropertySchema"
+      required:
+        type: array
+        items:
+          type: string
+      additionalProperties:
+        # Must be false when strict: true; can be boolean or schema when strict: false
+        anyOf:
+          - type: boolean
+          - $ref: "#/$defs/PropertySchema"
+      $defs:
+        type: object
+        additionalProperties:
+          $ref: "#/$defs/PropertySchema"
+
+  PropertySchema:
+    anyOf:
+      - $ref: "#/$defs/ObjectSchema"
+      - type: object
+        required: [type, items]
+        additionalProperties: false
+        properties:
+          type:
+            const: array
+          description:
+            type: string
+          items:
+            $ref: "#/$defs/PropertySchema"
+          minItems:
+            type: integer
+          maxItems:
+            type: integer
+      - type: object
+        required: [anyOf]
+        additionalProperties: false
+        properties:
+          anyOf:
+            type: array
+            items:
+              $ref: "#/$defs/PropertySchema"
+          description:
+            type: string
+      - type: object
+        required: [$ref]
+        additionalProperties: false
+        properties:
+          $ref:
+            type: string
+      - type: object
+        required: [type]
+        additionalProperties: false
+        properties:
+          type:
+            anyOf:
+              - enum: [string, number, integer, boolean, "null"]
+              - type: array
+                items:
+                  enum: [string, number, integer, boolean, "null"]
+          description:
+            type: string
+          enum:
+            type: array
+            items:
+              type: [string, number, boolean, "null"]
+          const:
+            type: [string, number, boolean, "null"]
+          # Non-strict advisory constraints (strip these when compiling with strict: true)
+          pattern:
+            type: string
+          format:
+            type: string
+          minLength:
+            type: integer
+          maxLength:
+            type: integer
+          minimum:
+            type: number
+          maximum:
+            type: number
