@@ -1,8 +1,23 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$id: "schemas:v0:lib"
+$id: "schemas:v0:trigger"
 title: Trigger formats
 description: >
   Defines the format in which trigger events can be descriped. E.G. 
   enabling actions to be performed automatically after another action
   or if a high-uncertainty event occurs how to properly branch off
   mid generation
+
+type: object
+required:
+  - id
+  - version
+
+properties:
+  id:
+    type: string
+
+  version:
+    $ref: "schemas:v0:version"
+
+  description:
+    type: string

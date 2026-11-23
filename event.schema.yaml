@@ -1,0 +1,7 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "schemas:v0:event"
+title: Event formats
+description: >
+  Defines the format in which events can be described
+
+type: object

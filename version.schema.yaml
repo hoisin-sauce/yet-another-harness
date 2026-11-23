@@ -5,16 +5,18 @@ description: >
   Standard versioning for objects described in the v0 schema
 
 type: object
-    required:
-      - versionCode
-      - versionStatus
-    properties:
-      versionCode:
-        type: string
-      versionStatus:
-        enum:
-          - proposed
-          - experimental
-          - stable
-          - depreciated
-          - superceded
+required:
+  - versionCode
+  - versionStatus
+
+properties:
+  versionCode:
+    type: string
+
+  versionStatus:
+    enum:
+      - proposed
+      - experimental
+      - stable
+      - depreciated
+      - superseded
